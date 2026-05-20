@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seblak Mbak Ana | E-Menu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET & BASE ================= */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#050505;
+color:white;
+overflow-x:hidden;
+position: relative;
+}
+
+/* ================= SCROLLBAR ================= */
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#ff6600;
+border-radius:20px;
+}
+
+/* ================= BACKGROUND GLOW ================= */
+body::before{
+content:'';
+position:fixed;
+width:500px;
+height:500px;
+background:rgba(255,100,0,0.15);
+filter:blur(120px);
+top:-150px;
+left:-150px;
+z-index:-1;
+}
+
+body::after{
+content:'';
+position:fixed;
+width:400px;
+height:400px;
+background:rgba(255,0,100,0.1);
+filter:blur(120px);
+bottom:-120px;
+right:-120px;
+z-index:-1;
+}
+
+/* ================= HEADER ================= */
+header{
+position:sticky;
+top:0;
+z-index:999;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 5%;
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.logo{
+font-size:1.4rem;
+font-weight:700;
+background:linear-gradient(45deg,#ff6600,#ffb300);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.meja{
+padding:10px 18px;
+background:#111;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* ================= HERO ================= */
+.hero{
+padding:40px 5% 30px;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+}
+
+.hero img{
+width:100%;
+max-width:320px;
+height:220px;
+object-fit:cover;
+border-radius:30px;
+margin-bottom:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{ transform:translateY(0px); }
+50%{ transform:translateY(-10px); }
+}
+
+.hero h1{
+font-size:2.4rem;
+line-height:1.2;
+margin-bottom:15px;
+}
+
+.hero h1 span{
+background:linear-gradient(45deg,#ff6600,#ffb300);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+color:#bdbdbd;
+font-size:14px;
+line-height:1.7;
+max-width:500px;
+}
+
+/* ================= MENU NAV ================= */
+.menu-nav{
+position:sticky;
+top:76px;
+z-index:998;
+display:flex;
+gap:12px;
+padding:15px 5%;
+overflow-x:auto;
+background:rgba(5,5,5,0.8);
+backdrop-filter:blur(15px);
+}
+
+.menu-nav::-webkit-scrollbar{
+display:none;
+}
+
+.menu-btn{
+border:none;
+padding:12px 20px;
+border-radius:999px;
+background:#141414;
+color:white;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+white-space:nowrap;
+}
+
+.menu-btn.active{
+background:linear-gradient(45deg,#ff6600,#ff9900);
+}
+
+.menu-btn:hover{
+transform:translateY(-2px);
+}
+
+/* ================= TITLE ================= */
+.section-title{
+padding:25px 5% 10px;
+font-size:1.3rem;
+font-weight:700;
+}
+
+/* ================= GRID ================= */
+.menu-grid{
+padding:0 5% 30px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+/* ================= CARD ================= */
+.card{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.05);
+border-radius:22px;
+overflow:hidden;
+transition:.3s;
+backdrop-filter:blur(10px);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 30px rgba(255,100,0,0.15);
+}
+
+.card img{
+width:100%;
+height:110px;
+object-fit:cover;
+}
+
+.content{
+padding:14px;
+display:flex;
+flex-direction:column;
+flex-grow:1;
+justify-content:space-between;
+}
+
+.content h3{
+font-size:14px;
+margin-bottom:5px;
+line-height:1.3;
+}
+
+.price{
+color:#ffae00;
+font-size:14px;
+font-weight:700;
+margin-bottom:12px;
+}
+
+.order-btn{
+width:100%;
+padding:10px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#ff6600,#ff9900);
+color:white;
+font-size:12px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.order-btn:hover{
+transform:scale(1.03);
+}
+
+/* ================= CART FLOATING BUTTON ================= */
+.cart{
+position:fixed;
+right:20px;
+bottom:20px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:linear-gradient(45deg,#ff6600,#ff9900);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+cursor:pointer;
+z-index:999;
+box-shadow:0 10px 30px rgba(255,100,0,0.4);
+}
+
+.cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+width:25px;
+height:25px;
+background:white;
+color:black;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:12px;
+font-weight:700;
+}
+
+/* ================= MODAL BASE ================= */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.85);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:9999;
+backdrop-filter:blur(8px);
+}
+
+.modal-content{
+width:100%;
+max-width:500px;
+background:#101010;
+border-radius:30px;
+padding:25px;
+position:relative;
+max-height:85vh;
+overflow-y:auto;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.close{
+position:absolute;
+right:20px;
+top:20px;
+font-size:22px;
+cursor:pointer;
+color:#aaa;
+transition: .2s;
+}
+
+.close:hover {
+color: white;
+}
+
+.option-title{
+margin:18px 0 8px;
+font-size:14px;
+font-weight:600;
+color:#ffae00;
+}
+
+select,
+.input-nama{
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+background:#1b1b1b;
+color:white;
+border-radius:15px;
+font-size:14px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.toppings-container {
+max-height: 200px;
+overflow-y: auto;
+background: #141414;
+padding: 10px;
+border-radius:15px;
+margin-top: 10px;
+border: 1px solid rgba(255,255,255,0.05);
+overscroll-behavior: contain;
+}
+
+.toppings{
+display:grid;
+grid-template-columns:1fr;
+gap:10px;
+}
+
+.toppings label{
+background:#181818;
+padding:12px;
+border-radius:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:13px;
+cursor:pointer;
+border:1px solid transparent;
+transition: .2s;
+}
+
+.toppings label:hover {
+border-color: rgba(255,100,0,0.3);
+}
+
+.toppings input[type="checkbox"] {
+accent-color: #ff6600;
+width: 16px;
+height: 16px;
+}
+
+.total{
+margin-top:20px;
+font-size:1.2rem;
+font-weight:700;
+display:flex;
+justify-content:space-between;
+border-top:1px dashed rgba(255,255,255,0.1);
+padding-top: 15px;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media(min-width:900px){
+.hero{
+flex-direction:row;
+justify-content:space-between;
+text-align:left;
+gap:50px;
+padding:60px 8%;
+}
+
+.hero img{
+max-width:420px;
+height:300px;
+margin:0;
+}
+
+.hero-text{
+flex:1;
+}
+
+.hero h1{
+font-size:4rem;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.menu-grid{
+grid-template-columns:repeat(4,1fr);
+padding:0 8% 40px;
+}
+
+.section-title{
+padding:40px 8% 15px;
+font-size:2rem;
+}
+
+.menu-nav{
+padding:15px 8%;
+top: 81px;
+}
+
+header{
+padding:18px 8%;
+}
+
+.card img{
+height:180px;
+}
+
+.content h3{
+font-size:16px;
+}
+
+.price{
+font-size:15px;
+}
+
+.order-btn{
+font-size:14px;
+padding:13px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">Seblak Mbak Ana</div>
+<div class="meja" id="displayMeja">🍜 Meja: Loading...</div>
+</header>
+
+<section class="hero">
+<div class="hero-text">
+<h1>Seblak & Mie Ayam <span>Mbak Ana</span></h1>
+<p>Pesan makanan favoritmu langsung dari meja tanpa perlu antre. Tinggal pilih menu, level pedas, topping, lalu kirim otomatis ke WhatsApp.</p>
+</div>
+<img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1200&auto=format&fit=crop" alt="Hero Seblak">
+</section>
+
+<!-- NAVIGATION CATEGORY -->
+<div class="menu-nav">
+<button class="menu-btn active" onclick="filterMenu('all', this)">🍽 Semua</button>
+<button class="menu-btn" onclick="filterMenu('seblak', this)">🔥 Seblak</button>
+<button class="menu-btn" onclick="filterMenu('mie', this)">🍜 Mie Ayam</button>
+<button class="menu-btn" onclick="filterMenu('minuman', this)">🥤 Minuman</button>
+</div>
+
+<div id="menuContainer">
+    <!-- SEBLAK -->
+    <div class="kategori-wrapper seblak">
+        <h2 class="section-title">🔥 Menu Seblak</h2>
+        <section class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=600" alt="Seblak Ceker">
+                <div class="content">
+                    <h3>Seblak Ceker</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Ceker',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=600" alt="Seblak Seafood">
+                <div class="content">
+                    <h3>Seblak Seafood</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Seafood',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=600" alt="Seblak Bakso">
+                <div class="content">
+                    <h3>Seblak Bakso</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Bakso',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=600" alt="Seblak Mie">
+                <div class="content">
+                    <h3>Seblak Mie</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Mie',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600" alt="Seblak Balungan">
+                <div class="content">
+                    <h3>Seblak Balungan</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Balungan',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600" alt="Seblak Komplit">
+                <div class="content">
+                    <h3>Seblak Komplit</h3>
+                    <div class="price">Rp12.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Komplit',12000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600" alt="Seblak Mie Komplit">
+                <div class="content">
+                    <h3>Seblak Mie Komplit</h3>
+                    <div class="price">Rp16.000</div>
+                    <button class="order-btn" onclick="openModal('Seblak Mie Komplit',16000)">Pesan</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MIE AYAM -->
+    <div class="kategori-wrapper mie">
+        <h2 class="section-title">🍜 Menu Mie Ayam</h2>
+        <section class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600" alt="Mie Ayam Bakso">
+                <div class="content">
+                    <h3>Mie Ayam Bakso</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Mie Ayam Bakso',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600" alt="Mie Ayam Bakso Urat">
+                <div class="content">
+                    <h3>Mie Ayam Bakso Urat</h3>
+                    <div class="price">Rp10.000</div>
+                    <button class="order-btn" onclick="openModal('Mie Ayam Bakso Urat',10000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600" alt="Mie Ayam Ceker">
+                <div class="content">
+                    <h3>Mie Ayam Ceker</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Mie Ayam Ceker',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600" alt="Mie Ayam Balungan">
+                <div class="content">
+                    <h3>Mie Ayam Balungan</h3>
+                    <div class="price">Rp8.000</div>
+                    <button class="order-btn" onclick="openModal('Mie Ayam Balungan',8000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600" alt="Mie Ayam Komplit">
+                <div class="content">
+                    <h3>Mie Ayam Komplit</h3>
+                    <div class="price">Rp12.000</div>
+                    <button class="order-btn" onclick="openModal('Mie Ayam Komplit',12000)">Pesan</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MINUMAN -->
+    <div class="kategori-wrapper minuman">
+        <h2 class="section-title">🥤 Minuman Segar</h2>
+        <section class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=600" alt="Teh">
+                <div class="content">
+                    <h3>Teh (Es/Hangat)</h3>
+                    <div class="price">Rp4.000</div>
+                    <button class="order-btn" onclick="openModal('Teh (Es/Hangat)',4000)">Pesan</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600" alt="Tea Jus">
+                <div class="content">
+                    <h3>Tea Jus</h3>
+                    <div class="price">Rp3.000</div>
+                    <button class="order-btn" onclick="openModal('Tea Jus',3000)">Pesan</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- MODAL OPTION -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="close" onclick="closeModal()">✖</div>
+<h2 id="modalTitle"></h2>
+<div class="price" id="modalPrice"></div>
+
+<div class="section-opsi-makanan">
+    <!-- OPSI SAJIAN (Hanya Tampil Jika Memilih Seblak) -->
+    <div id="containerSajian">
+        <div class="option-title">Jenis Sajian</div>
+        <select id="sajian">
+            <option value="Kuah">Kuah</option>
+            <option value="Nyemek">Nyemek</option>
+            <option value="Goreng">Goreng</option>
+        </select>
+    </div>
+
+    <!-- OPSI LEVEL PEDAS (Tampil untuk Seblak & Mie Ayam) -->
+    <div class="option-title">Level Pedas</div>
+    <select id="pedas">
+        <option>Level 0 (Tidak Pedas)</option>
+        <option>Level 1</option>
+        <option>Level 2</option>
+        <option>Level 3</option>
+        <option>Level 4</option>
+        <option>Level 5 (🔥 Maksimal)</option>
+    </select>
+
+    <div class="option-title">Pilih Aneka Topping Tambahan</div>
+    <div class="toppings-container">
+        <div class="toppings">
+            <label><input type="checkbox" value="Sayap" data-harga="5000"> Sayap (+5k)</label>
+            <label><input type="checkbox" value="Indomie" data-harga="5000"> Indomie (+5k)</label>
+            <label><input type="checkbox" value="Sosis Jumbo" data-harga="4000"> Sosis Jumbo (+4k)</label>
+            <label><input type="checkbox" value="Bakso Urat" data-harga="4000"> Bakso Urat (+4k)</label>
+            <label><input type="checkbox" value="Kue Ikan Pedas" data-harga="4000"> Kue Ikan Pedas (+4k)</label>
+            <label><input type="checkbox" value="Jamur Enoki" data-harga="3000"> Jamur Enoki (+3k)</label>
+            <label><input type="checkbox" value="Telur" data-harga="3000"> Telur (+3k)</label>
+            <label><input type="checkbox" value="Udang Gulung" data-harga="3000"> Udang Gulung (+3k)</label>
+            <label><input type="checkbox" value="Duo Twister" data-harga="3000"> Duo Twister (+3k)</label>
+            <label><input type="checkbox" value="Dumpling Ayam" data-harga="2000"> Dumpling Ayam (+2k)</label>
+            <label><input type="checkbox" value="Dumpling Keju" data-harga="2000"> Dumpling Keju (+2k)</label>
+            <label><input type="checkbox" value="Fish Roll" data-harga="2000"> Fish Roll (+2k)</label>
+            <label><input type="checkbox" value="Flower Twister" data-harga="2000"> Flower Twister (+2k)</label>
+            <label><input type="checkbox" value="Sosis" data-harga="2000"> Sosis (+2k)</label>
+            <label><input type="checkbox" value="Ekado" data-harga="2000"> Ekado (+2k)</label>
+            <label><input type="checkbox" value="Dimsum" data-harga="2000"> Dimsum (+2k)</label>
+            <label><input type="checkbox" value="Crab Stick" data-harga="2000"> Crab Stick (+2k)</label>
+            <label><input type="checkbox" value="Kembang Cumi" data-harga="2000"> Kembang Cumi (+2k)</label>
+            <label><input type="checkbox" value="Cikuwa" data-harga="2000"> Cikuwa (+2k)</label>
+            <label><input type="checkbox" value="Bakso Salmon" data-harga="2000"> Bakso Salmon (+2k)</label>
+            <label><input type="checkbox" value="Tofu Ikan" data-harga="2000"> Tofu Ikan (+2k)</label>
+            <label><input type="checkbox" value="Udang" data-harga="2000"> Udang (+2k)</label>
+            <label><input type="checkbox" value="Otak Otak" data-harga="2000"> Otak Otak (+2k)</label>
+            <label><input type="checkbox" value="Scallop" data-harga="1500"> Scallop (+1.5k)</label>
+            <label><input type="checkbox" value="Bakso Udang" data-harga="1500"> Bakso Udang (+1.5k)</label>
+            <label><input type="checkbox" value="Bakso Ikan" data-harga="1500"> Bakso Ikan (+1.5k)</label>
+            <label><input type="checkbox" value="Cornet Ayam" data-harga="1000"> Cornet Ayam (+1k)</label>
+            <label><input type="checkbox" value="Siomay Kering" data-harga="1000"> Siomay Kering (+1k)</label>
+            <label><input type="checkbox" value="Cuanki Lidah" data-harga="1000"> Cuanki Lidah (+1k)</label>
+            <label><input type="checkbox" value="Mie Kering" data-harga="1000"> Mie Kering (+1k)</label>
+            <label><input type="checkbox" value="Mie Sakura" data-harga="3000"> Mie Sakura (+3k)</label>
+            <label><input type="checkbox" value="Sosis Kimbo" data-harga="3000"> Sosis Kimbo (+3k)</label>
+            <label><input type="checkbox" value="Sosis Merah" data-harga="2000"> Sosis Merah (+2k)</label>
+            <label><input type="checkbox" value="Bakso Kecil (isi 3)" data-harga="2000"> Bakso Kecil (isi 3) (+2k)</label>
+            <label><input type="checkbox" value="Kue Ikan" data-harga="2000"> Kue Ikan (+2k)</label>
+            <label><input type="checkbox" value="Nugget Crab" data-harga="2000"> Nugget Crab (+2k)</label>
+            <label><input type="checkbox" value="Otak Otak Roll" data-harga="2000"> Otak Otak Roll (+2k)</label>
+            <label><input type="checkbox" value="Dumpling Merah" data-harga="2000"> Dumpling Merah (+2k)</label>
+            <label><input type="checkbox" value="Dumpling Rendang" data-harga="2000"> Dumpling Rendang (+2k)</label>
+            <label><input type="checkbox" value="Dumpling Kari" data-harga="2000"> Dumpling Kari (+2k)</label>
+            <label><input type="checkbox" value="Bola Lobster" data-harga="2000"> Bola Lobster (+2k)</label>
+            <label><input type="checkbox" value="Mie Pangsit" data-harga="2000"> Mie Pangsit (+2k)</label>
+            <label><input type="checkbox" value="Mie Basah" data-harga="2000"> Mie Basah (+2k)</label>
+            <label><input type="checkbox" value="Mie Bihun" data-harga="2000"> Mie Bihun (+2k)</label>
+            <label><input type="checkbox" value="Batagor Kering (isi 3)" data-harga="2000"> Batagor Kering (isi 3) (+2k)</label>
+            <label><input type="checkbox" value="Odeng" data-harga="2000"> Odeng (+2k)</label>
+            <label><input type="checkbox" value="Coin Star" data-harga="2000"> Coin Star (+2k)</label>
+            <label><input type="checkbox" value="Aneka Kerupuk" data-harga="1000"> Aneka Kerupuk (+1k)</label>
+            <label><input type="checkbox" value="Kikil Sapi" data-harga="1000"> Kikil Sapi (+1k)</label>
+            <label><input type="checkbox" value="Bakso Tahu" data-harga="1000"> Bakso Tahu (+1k)</label>
+            <label><input type="checkbox" value="Kangkung" data-harga="1000"> Kangkung (+1k)</label>
+            <label><input type="checkbox" value="Burger Chup" data-harga="500"> Burger Chup (+500)</label>
+            <label><input type="checkbox" value="Tauge" data-harga="500"> Tauge (+500)</label>
+        </div>
+    </div>
+</div>
+
+<button class="order-btn" style="margin-top:25px;" onclick="addCart()">+ Tambah Ke Keranjang</button>
+</div>
+</div>
+
+<!-- FLOATING CART BUTTON -->
+<div class="cart" onclick="openCart()">
+🛒 <div class="cart-count" id="cartCount">0</div>
+</div>
+
+<!-- CART MODAL -->
+<div class="modal" id="cartModal">
+<div class="modal-content">
+<div class="close" onclick="closeCart()">✖</div>
+<h2>🛒 Keranjang Pesanan</h2>
+
+<div class="option-title">Nama Pemesan</div>
+<input type="text" class="input-nama" id="namaPemesan" placeholder="Masukkan nama Anda...">
+
+<div id="cartItems"></div>
+
+<div class="total">
+<span>Total Pembayaran</span>
+<span id="totalPrice">Rp0</span>
+</div>
+
+<button class="order-btn" style="margin-top:20px;" onclick="checkoutWhatsApp()">Kirim Pesanan (WhatsApp)</button>
+</div>
+</div>
+
+<script>
+const NOMOR_WHATSAPP = '6283871365978';
+let currentMenu = '';
+let currentPrice = 0;
+let cart = [];
+let nomorMeja = "01"; 
+
+/* ================= AMBIL NO MEJA OTOMATIS DARI URL ================= */
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if(params.has('meja')) {
+        nomorMeja = params.get('meja');
+    }
+    document.getElementById('displayMeja').innerText = `🍜 Meja: ${nomorMeja}`;
+});
+
+/* ================= MODAL CONTROLLER ================= */
+function openModal(menu, price){
+    currentMenu = menu;
+    currentPrice = price;
+
+    // Reset Pilihan Input ke Default
+    document.getElementById('sajian').selectedIndex = 0;
+    document.getElementById('pedas').selectedIndex = 0;
+    document.querySelectorAll('.toppings input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+    const namaMenuSaja = menu.toLowerCase();
+    const keywordsMinuman = ['teh', 'jus', 'es', 'air', 'milo', 'kopi', 'tea', 'jeruk'];
+    const isMinuman = keywordsMinuman.some(keyword => namaMenuSaja.includes(keyword));
+    const isSeblak = namaMenuSaja.includes('seblak');
+
+    const opsiMakananSection = document.querySelector('.section-opsi-makanan');
+    const containerSajian = document.getElementById('containerSajian');
+
+    if (isMinuman) {
+        // Sembunyikan semua opsi jika minuman
+        opsiMakananSection.style.display = 'none';
+    } else {
+        opsiMakananSection.style.display = 'block';
+        // Tampilkan Jenis Sajian HANYA untuk Seblak
+        if (isSeblak) {
+            containerSajian.style.display = 'block';
+        } else {
+            containerSajian.style.display = 'none';
+        }
+    }
+
+    document.getElementById('modal').style.display = 'flex';
+    document.getElementById('modalTitle').innerText = menu;
+    document.getElementById('modalPrice').innerText = 'Rp ' + price.toLocaleString('id-ID');
+}
+
+function closeModal(){
+    document.getElementById('modal').style.display = 'none';
+}
+
+/* ================= FILTER KATEGORI MENU ================= */
+function filterMenu(category, element){
+    document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+
+    document.querySelectorAll('.kategori-wrapper').forEach(wrapper => {
+        if(category === 'all') {
+            wrapper.style.display = 'block';
+        } else {
+            if(wrapper.classList.contains(category)) {
+                wrapper.style.display = 'block';
+            } else {
+                wrapper.style.display = 'none';
+            }
+        }
+    });
+}
+
+/* ================= CARTS CONTROLLER ================= */
+function addCart(){
+    let toppingTerpilih = [];
+    let hargaToppingTotal = 0;
+    
+    const namaMenuSaja = currentMenu.toLowerCase();
+    const keywordsMinuman = ['teh', 'jus', 'es', 'air', 'milo', 'kopi', 'tea', 'jeruk'];
+    const isMinuman = keywordsMinuman.some(keyword => namaMenuSaja.includes(keyword));
+    const isSeblak = namaMenuSaja.includes('seblak');
+
+    if (!isMinuman) {
+        document.querySelectorAll('.toppings input[type="checkbox"]:checked').forEach(cb => {
+            toppingTerpilih.push(cb.value);
+            hargaToppingTotal += parseInt(cb.getAttribute('data-harga'));
+        });
+    }
+
+    let totalHargaMenu = currentPrice + hargaToppingTotal;
+
+    let item = {
+        menu: currentMenu,
+        hargaDasar: currentPrice,
+        hargaTotal: totalHargaMenu,
+        sajian: isSeblak ? document.getElementById('sajian').value : '-', // Hanya simpan jenis sajian jika seblak
+        pedas: isMinuman ? '-' : document.getElementById('pedas').value,
+        topping: toppingTerpilih
+    };
+
+    cart.push(item);
+    document.getElementById('cartCount').innerText = cart.length;
+
+    closeModal();
+    renderCart();
+}
+
+function renderCart(){
+    let html = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.hargaTotal;
+        let infoTopping = item.topping.length > 0 ? item.topping.join(', ') : 'Tanpa Topping';
+        
+        let detailTambahan = '';
+        if (item.pedas !== '-') {
+            // Jika seblak, sertakan info sajian. Jika Mie Ayam, langsung level pedas
+            let teksSajian = item.sajian !== '-' ? `🥣 Sajian: Seblak ${item.sajian} <br> ` : '';
+            detailTambahan = `${teksSajian}🌶️ ${item.pedas} <br> ➕ Topping: ${infoTopping}`;
+        } else {
+            detailTambahan = `🥤 Varian Minuman`;
+        }
+
+        html += `
+        <div style="background:#181818; padding:15px; border-radius:18px; margin-top:15px; border:1px solid rgba(255,255,255,0.03);">
+            <h3 style="font-size:15px; color:white;">${item.menu}</h3>
+            <p style="font-size:12px; color:#aaa; margin-top:5px; line-height:1.5;">
+                ${detailTambahan}
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+                <b style="color:#ffae00;">Rp ${item.hargaTotal.toLocaleString('id-ID')}</b>
+                <button onclick="hapusItem(${index})" style="border:none; background:#ff3333; color:white; padding:7px 14px; border-radius:10px; cursor:pointer; font-size:12px; font-weight:600;">Hapus</button>
+            </div>
+        </div>`;
+    });
+
+    document.getElementById('cartItems').innerHTML = html;
+    document.getElementById('totalPrice').innerText = 'Rp ' + total.toLocaleString('id-ID');
+}
+
+function hapusItem(index){
+    cart.splice(index, 1);
+    document.getElementById('cartCount').innerText = cart.length;
+    renderCart();
+}
+
+function openCart(){
+    document.getElementById('cartModal').style.display = 'flex';
+}
+
+function closeCart(){
+    document.getElementById('cartModal').style.display = 'none';
+}
+
+/* ================= INTEGRASI CHECKOUT WHATSAPP ================= */
+function checkoutWhatsApp(){
+    if(cart.length === 0){
+        alert('Keranjang belanja Anda masih kosong!');
+        return;
+    }
+
+    let nama = document.getElementById('namaPemesan').value.trim();
+    if(nama === ''){
+        alert('Silakan masukkan nama pemesan terlebih dahulu!');
+        return;
+    }
+
+    let text = `🔥 *PESANAN SEBLAK MBAK ANA* 🔥\n\n`;
+    text += `👤 *Nama:* ${nama}\n`;
+    text += `📍 *Meja:* ${nomorMeja}\n`;
+    text += `----------------------------------------\n\n`;
+    
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        text += `*${index + 1}. ${item.menu}*\n`;
+        if (item.pedas !== '-') {
+            let infoTopping = item.topping.length > 0 ? item.topping.join(', ') : '-';
+            if (item.sajian !== '-') {
+                text += `   🥣 Sajian: ${item.sajian}\n`;
+            }
+            text += `   🌶️ Pilihan: ${item.pedas}\n`;
+            text += `   ➕ Topping: ${infoTopping}\n`;
+        }
+        text += `   💰 Harga: Rp ${item.hargaTotal.toLocaleString('id-ID')}\n\n`;
+        total += item.hargaTotal;
+    });
+
+    text += `----------------------------------------\n`;
+    text += `*TOTAL PEMBAYARAN:* Rp ${total.toLocaleString('id-ID')}\n\n`;
+    text += ` Mohon ditunggu ya, pesanan akan segera diproses!`;
+
+    window.open(`https://wa.me/${NOMOR_WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    const cartModal = document.getElementById('cartModal');
+    if (event.target == modal) closeModal();
+    if (event.target == cartModal) closeCart();
+}
+</script>
+
+</body>
+</html>
